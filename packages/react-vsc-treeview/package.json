@@ -1,6 +1,6 @@
 {
-    "name": "react-vsc-treeview",
-    "version": "0.2.3",
+    "name": "@hackmd/react-vsc-treeview",
+    "version": "0.2.4",
     "main": "dist/index.js",
     "license": "MIT",
     "scripts": {
