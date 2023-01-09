@@ -23,13 +23,14 @@ export interface VSCTreeItemProps {
     command?: vscode.Command;
     collapsibleState?: vscode.TreeItemCollapsibleState;
     contextValue?: string;
+    context?: any
 }
 
 export type Props = React.PropsWithChildren<VSCTreeItemProps>;
 
 export const propKeys: (keyof Props)[] = [
     'label', 'id', 'iconPath', 'description', 'resourceUri', 'tooltip',
-    'command', 'collapsibleState', 'contextValue', 'children'
+    'command', 'collapsibleState', 'contextValue', 'children', 'context'
 ];
 
 export interface UpdatePayload<T extends keyof Props = keyof Props> {

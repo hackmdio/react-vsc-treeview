@@ -20,7 +20,8 @@ export default ReactReconciler<
             tooltip,
             command,
             collapsibleState,
-            contextValue
+            contextValue,
+            context
         } = props;
         const treeItem = new vscode.TreeItem(label, collapsibleState);
         treeItem.id = id;
@@ -30,6 +31,7 @@ export default ReactReconciler<
         treeItem.tooltip = tooltip;
         treeItem.command = command;
         treeItem.contextValue = contextValue;
+        treeItem.context = context;
         return container.createTreeItem(treeItem);
     },
 
