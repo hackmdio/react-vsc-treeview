@@ -46,7 +46,14 @@ export default class ExtendedTreeDataProvider implements vscode.TreeDataProvider
     }
 
     insertInRootBefore(element: ExtendedTreeItem, beforeElement: ExtendedTreeItem) {
+        const existingIndex = this._data.children.findIndex(item => item === element);
         const index = this._data.children.findIndex(item => item === beforeElement);
+
+        if (existingIndex > -1) {
+            // reorder the element instead of inserting a new one
+            this._data.children.splice(existingIndex, 1);
+        }
+        
         this._data.children.splice(index + 1, 0, element);
         this._onDidChangeTreeData.fire();
     }

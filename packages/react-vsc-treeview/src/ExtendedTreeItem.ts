@@ -30,6 +30,13 @@ export default class ExtendedTreeItem {
 
     insertBefore(element: ExtendedTreeItem, beforeElement: ExtendedTreeItem) {
         const index = this.children.findIndex(item => item === beforeElement);
+        const existingIndex = this.children.findIndex(item => item === element);
+
+        if (existingIndex > -1) {
+            // reorder the element instead of inserting a new one
+            this.children.splice(existingIndex, 1);
+        }
+
         this.children.splice(index + 1, 0, element);
         this._onDidChange.fire(this);
     }
