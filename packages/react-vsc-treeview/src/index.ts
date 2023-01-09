@@ -8,12 +8,21 @@ import ExtendedTreeDataProvider from './ExtendedTreeDataProvider';
 import reconciler from './reconciler';
 
 const ReactTreeView = {
-    render(whatToRender, viewId) {
+    render(whatToRender, viewId, { devtools = false }: { devtools?: boolean } = {}) {
         const treeDataProvider = new ExtendedTreeDataProvider();
         const treeView = vscode.window.createTreeView(viewId, {
             treeDataProvider
         });
         const container = reconciler.createContainer(treeDataProvider, false, false);
+
+        if (devtools) {
+            reconciler.injectIntoDevTools({
+                bundleType: 1,
+                rendererPackageName: "react-vsc-treeview",
+                version: "0.2.3",
+            });
+        }
+
         reconciler.updateContainer(whatToRender, container, null, () => {});
         return treeView;
     }
