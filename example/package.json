@@ -65,7 +65,7 @@
         "watch": "yarn run clean && webpack --mode none --watch --info-verbosity verbose"
     },
     "devDependencies": {
-        "@types/react": "^17.0.0",
+        "@types/react": "^18.0.0",
         "@types/vscode": "^1.52.0",
         "rimraf": "^3.0.2",
         "ts-loader": "^8.0.12",
@@ -74,7 +74,7 @@
         "webpack-cli": "^3.3.11"
     },
     "dependencies": {
-        "react": "^17.0.1",
-        "react-vsc-treeview": "*"
+        "react": "^18.0.1",
+        "@hackmd/react-vsc-treeview": "*"
     }
 }
