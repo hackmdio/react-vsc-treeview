@@ -13,7 +13,7 @@ const ReactTreeView = {
         const treeView = vscode.window.createTreeView(viewId, {
             treeDataProvider
         });
-        const container = reconciler.createContainer(treeDataProvider, false, false);
+        const container = reconciler.createContainer(treeDataProvider, 0, null, true, null, "", () => { }, null);
 
         if (devtools) {
             reconciler.injectIntoDevTools({

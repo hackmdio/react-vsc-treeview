@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
 import ReactReconciler from 'react-reconciler';
+import { DefaultEventPriority } from "react-reconciler/constants.js";
 import ExtendedTreeDataProvider from './ExtendedTreeDataProvider';
 import ExtendedTreeItem from './ExtendedTreeItem';
 import {Props, propKeys, UpdatePayload} from './VSCTreeItem';
 
 export default ReactReconciler<
     'div', Props, ExtendedTreeDataProvider, ExtendedTreeItem, ExtendedTreeItem,
-    unknown, unknown, unknown, UpdatePayload[], unknown, unknown, unknown
+    ExtendedTreeItem, ExtendedTreeItem, unknown, unknown, UpdatePayload[], unknown, number, number
 >({
     supportsMutation: true,
 
@@ -31,7 +32,7 @@ export default ReactReconciler<
         treeItem.tooltip = tooltip;
         treeItem.command = command;
         treeItem.contextValue = contextValue;
-        treeItem.context = context;
+        (treeItem as any).context = context;
         return container.createTreeItem(treeItem);
     },
 
@@ -75,6 +76,8 @@ export default ReactReconciler<
         instance.update(updatePayload);
     },
 
+    detachDeletedInstance() {},
+
     prepareForCommit() {
         return null;
     },
@@ -84,11 +87,24 @@ export default ReactReconciler<
     // @ts-ignore
     finalizeInitialChildren() {},
     getChildHostContext() {},
-    getPublicInstance() {},
+    getPublicInstance(instance) {
+        return instance
+    },
     getRootHostContext() {},
     resetAfterCommit() {},
 
     shouldSetTextContent() {
         return false;
-    }
+    },
+    
+    scheduleTimeout: function (fn: (...args: unknown[]) => unknown, delay?: number | undefined) {
+        return setTimeout(fn, delay);
+    },
+    cancelTimeout: function (id: any): void {
+        clearTimeout(id);
+    },
+    noTimeout: -1,
+    getCurrentEventPriority: function (): number {
+        return DefaultEventPriority;
+    },
 });
